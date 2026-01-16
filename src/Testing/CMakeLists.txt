@@ -29,3 +29,14 @@ set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 # - end of GoogleTest setup
+
+add_executable(testHello testHello.cpp)
+add_test(NAME test-hello COMMAND testHello)
+
+add_executable(testGTest testGTest.cpp)
+target_link_libraries(testGTest PRIVATE GTest::gtest_main)
+add_test(NAME test-gtest COMMAND testGTest)
+
+add_executable(testTransformChar testTransformChar.cpp)
+target_link_libraries(testTransformChar PRIVATE GTest::gtest_main MPAGSCipher)
+add_test(NAME test-transform-char COMMAND testTransformChar)

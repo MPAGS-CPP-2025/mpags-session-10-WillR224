@@ -9,7 +9,7 @@ project(MPAGSCipher VERSION 0.2.0)
 #   Do this to begin with so it's easy to see what compiler command/flags
 #   are used. This can also be done by removing the 'set' command and
 #   running make as 'make VERBOSE=1'.
-set(CMAKE_VERBOSE_MAKEFILE ON)
+# set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # - Don't allow C++ Compiler Vendor Extensions
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -17,27 +17,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # - Use our standard set of flags
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -Wfatal-errors -Wshadow -pedantic")
 
+add_subdirectory(MPAGSCipher)
+
 # - Add the Documentation subdirectory to the build
 add_subdirectory(Documentation)
 
+enable_testing()
+add_subdirectory(Testing)
+
 # - Declare the build of mpags-cipher main program
 add_executable(mpags-cipher
-  mpags-cipher.cpp
-  MPAGSCipher/TransformChar.hpp
-  MPAGSCipher/TransformChar.cpp
-  MPAGSCipher/ProcessCommandLine.cpp
-  MPAGSCipher/ProcessCommandLine.hpp
-  MPAGSCipher/RunCaesarCipher.cpp
-  MPAGSCipher/RunCaesarCipher.hpp
-  MPAGSCipher/CaesarCipher.cpp
-  MPAGSCipher/CaesarCipher.hpp
-  MPAGSCipher/CipherMode.hpp
-  )
+  mpags-cipher.cpp)
 
-target_include_directories(mpags-cipher
-  PRIVATE MPAGSCipher
-  )
-
-target_compile_features(mpags-cipher
-  PRIVATE cxx_std_17
-  )
+target_link_libraries(mpags-cipher PRIVATE MPAGSCipher)
